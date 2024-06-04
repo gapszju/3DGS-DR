@@ -13,7 +13,6 @@ import torch
 import math, time
 import torch.nn.functional as F
 import diff_gaussian_rasterization_c3
-import diff_gaussian_rasterization_c4
 import diff_gaussian_rasterization_c7 
 from scene.gaussian_model import GaussianModel
 from utils.sh_utils import eval_sh
