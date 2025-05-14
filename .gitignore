@@ -1,5 +1,6 @@
 *.pyc
 *.mp4
+*.zip
 .vscode
 __pycache__
 output
@@ -11,6 +12,7 @@ submodules/cubemapencoder/cubemapencoder.egg-info
 tensorboard_3d
 screenshots
 data
+data_copy
 util_scripts
 video_bp_files
 videos

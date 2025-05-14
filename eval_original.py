@@ -33,13 +33,6 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
 
     if save_ims: # save env light
         ltres = render_env_map(gaussians)
-        base_color_path = os.path.join(render_path, 'base_color')
-        refl_color_path = os.path.join(render_path, 'refl_color')
-        refl_strength_path = os.path.join(render_path, 'refl_strength')
-        # save object, environment, and normal maps
-        makedirs(base_color_path, exist_ok=True)
-        makedirs(refl_color_path, exist_ok=True)
-        makedirs(refl_strength_path, exist_ok=True)
         torchvision.utils.save_image(ltres['env_cood1'], os.path.join(model_path, 'light1.png'))
         torchvision.utils.save_image(ltres['env_cood2'], os.path.join(model_path, 'light2.png'))
     for idx, view in enumerate(tqdm(views, desc="Rendering progress")):
@@ -60,10 +53,7 @@ def render_set(model_path, name, iteration, views, gaussians, pipeline, backgrou
             normal_map = rendering['normal_map'] * 0.5 + 0.5
             torchvision.utils.save_image(render_color, os.path.join(color_path, '{0:05d}.png'.format(idx)))
             torchvision.utils.save_image(normal_map, os.path.join(normal_path, '{0:05d}.png'.format(idx)))
-            torchvision.utils.save_image(rendering["base_color_map"], os.path.join(base_color_path, '{0:05d}.png'.format(idx)))
-            torchvision.utils.save_image(rendering["refl_color_map"], os.path.join(refl_color_path, '{0:05d}.png'.format(idx)))
-            torchvision.utils.save_image(rendering["refl_strength_map"].expand(3,-1,-1), os.path.join(refl_strength_path, '{0:05d}.png'.format(idx)))
-            
+    
     ssim_v = np.array(ssims).mean()
     psnr_v = np.array(psnrs).mean()
     lpip_v = np.array(lpipss).mean()
